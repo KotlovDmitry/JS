@@ -27,7 +27,13 @@ console.log("Цели можно достичь примерно за " + (missi
 let budjetDay = budjetMonth / 30
 console.log(budjetDay + "-ваш бюджет за день");
 
-
+if (budjetDay > 1200){
+    console.log('У вас высокий уровень дохода');
+}else if (600 < budjetDay <= 1200){
+    console.log('У вас средний уровень дохода');
+}else if (budjetDay <= 600){
+    console.log('К сожалению у вас уровень дохода ниже среднего');
+}
 
 
 
