@@ -1,60 +1,74 @@
-'use strict'
+let isNumber = function(n){
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
 
-let money =+ prompt('Ваш месячный доход?', 30000),
-    income = "Freelanse",
-    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = confirm('Есть ли у вас депозит в банке?'),
+let money,
+    income = 'freelance',
+    addExpenses = prompt('Перечислите возможные расходы через запятую'),
+    deposit = confirm('Есть ли у вас счет в банке?'),
     mission = 1000000,
     period = 12,
-    expense1 = prompt('Введите обязательную статью расходов'),
-    amount1 =+ prompt('Во сколько это обойдется?'),
-    expense2 = prompt("Введите обязательную статью расходов №2"),
-    amount2 =+ prompt(" А это во сколько это обойдется?"),
-    accumulatedMonth =+ (money - getExpensesMonth()),
-    budjetDay=+ accumulatedMonth / 30;
+    profit;
+let start = function(){
+    do {
+        money = prompt('Ваш доход за месяц?');
+    }
+    while (!isNumber(money));
+};
+start();
 
-//console.log(addExpenses.length);
-//console.log('Период равен ' + period + ' месяцев');
-//console.log('Цель заработать ' + mission + ' рублей/долларов/гривен/юани');
-//console.log(addExpenses.toLowerCase().split(" "));
-
-function showTypeOf(data) {
-    console.log(typeof (data));
-}
+let showTypeOf = function(data){
+    console.log(typeof data);
+};
 showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
+//console.log(addExpenses.split(', '));
+let sum = 0;
 function getExpensesMonth() {
-    return(amount1 + amount2);
+    
+    for(let i=0; i<2; i++){
+        expenses1 = prompt('Введите статью расходов');
+        do{
+            profit = +prompt('Во сколько обходится?');
+        }
+        while(!isNumber(profit));
+        sum +=profit;
+    }
+    return sum;
 }
-console.log(getExpensesMonth());
 
+let expensesAmount = getExpensesMonth();
 
+console.log('Расходы за месяц: ' + expensesAmount);
 
-console.log(addExpenses.split(', '));
+let getAccumulatedMonth = function(){
+    return money - expensesAmount;
+};
+console.log(getAccumulatedMonth() + '-ваш доход с учетом затрат');
 
-function getTargetMonth() {
-    return(mission / accumulatedMonth);
+let accumulatedMonth = getAccumulatedMonth();
+
+let getTargetMonth = function(){
+    return mission / accumulatedMonth;
+};
+if (getTargetMonth() < 0){
+    console.log('Цель достигнута не будет');
+}else{
+    console.log('Вы можете достичь цели примерно за ' + Math.ceil(getTargetMonth()) + 'месяца(ев)');
 }
-console.log(getTargetMonth() + '-примерно за такой период вы сможете достигчь цели');
 
+let budjetDay = accumulatedMonth / 30;
+console.log(budjetDay + '-ваш бюджет на день');
 
-function getAccumulatedMonth() {
-    return(money - getExpensesMonth());
-}
-getAccumulatedMonth();
-
-console.log(budjetDay);
-
-
-function getStatusIncome() {
+let getStatusIncome = function(budjetDay) {
     if (budjetDay > 1200){
         return('У вас высокий уровень дохода');
-    }else if (600 < budjetDay <= 1200){
+    } else if (budjetDay<=1200 && budjetDay>=600){
         return('У вас средний уровень дохода');
-    }else if (budjetDay <= 600){
+    } else if (budjetDay < 600){
         return('К сожалению у вас уровень дохода ниже среднего');
     }
-}
-console.log(getStatusIncome());
+};
+console.log(getStatusIncome(budjetDay));
