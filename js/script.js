@@ -1,6 +1,6 @@
 'use strict'
 
-let money = prompt('Ваш месячный доход?', 30000),
+let money =+ prompt('Ваш месячный доход?', 30000),
     income = "Freelanse",
     addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
     deposit = confirm('Есть ли у вас депозит в банке?'),
@@ -9,7 +9,9 @@ let money = prompt('Ваш месячный доход?', 30000),
     expense1 = prompt('Введите обязательную статью расходов'),
     amount1 =+ prompt('Во сколько это обойдется?'),
     expense2 = prompt("Введите обязательную статью расходов №2"),
-    amount2 =+ prompt(" А это во сколько это обойдется?");
+    amount2 =+ prompt(" А это во сколько это обойдется?"),
+    accumulatedMonth =+ (money - getExpensesMonth()),
+    budjetDay=+ accumulatedMonth / 30;
 
 //console.log(addExpenses.length);
 //console.log('Период равен ' + period + ' месяцев');
@@ -23,32 +25,30 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
-function getExpensesMonth(amount1, amount2) {
-    console.log(amount1 + amount2);
+function getExpensesMonth() {
+    return(amount1 + amount2);
 }
-getExpensesMonth(amount1, amount2);
+console.log(getExpensesMonth());
+
+
 
 console.log(addExpenses.split(', '));
 
-function getTargetMonth(acccumulatedMonth) {
-    let accumulatedMonth = (money - amount1 - amount2);
-    let period2 = (mission / accumulatedMonth);
-    console.log('С учетом месячных затрат, цели вы достигнете за '+ period2+ " месяца(ев)");
+function getTargetMonth() {
+    return(mission / accumulatedMonth);
 }
-getTargetMonth();
+console.log(getTargetMonth() + '-примерно за такой период вы сможете достигчь цели');
 
-function getAccumulatedMonth(money, amount1, amount2) {
-    let accumulatedMonth = (money - amount1 - amount2);
-    //console.log('accumulatedMonth' + accumulatedMonth);
-    let budjetDay = accumulatedMonth / 30
-    console.log('budjetDay' + budjetDay + '-ваш бюджет за день');
-    
+
+function getAccumulatedMonth() {
+    return(money - getExpensesMonth());
 }
-getAccumulatedMonth(money, amount1, amount2);
+getAccumulatedMonth();
+
+console.log(budjetDay);
 
 
-
-function getStatusIncome(budjetDay) {
+function getStatusIncome() {
     if (budjetDay > 1200){
         return('У вас высокий уровень дохода');
     }else if (600 < budjetDay <= 1200){
