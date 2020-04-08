@@ -11,7 +11,7 @@ let isNumber = function(n){
 };
 
 start();
-
+let amount = 0;
 let appData = {
     income : {},
     addIncome : [],
@@ -20,10 +20,24 @@ let appData = {
     deposit : false,
     mission : 1000000,
     period : 12,
+    
     asking : function(){
         let addExpenses = prompt('Перечислите возможные расходы через запятую');
             appData.addExpenses = addExpenses.toLowerCase().split(', ');
             appData.deposit = confirm('Есть ли у вас счет в банке?');
+            
+            for (let i=0; i<2; i++){
+                let sum;
+                let message = prompt('Введите статью расходов');
+                do{
+                    sum = +prompt('Во сколько обходится?', '');
+                }
+                while(!isNumber(sum));
+                amount += sum;
+                appData.expenses[message] = sum;
+            }
+            console.log(amount);
+            return amount;
     },
     profit : 0,
     budjet : money,
@@ -31,19 +45,13 @@ let appData = {
     budjetMonth : 0,
     expensesMonth : 0,
     getExpensesMonth : function(){
-        let sum = 0;
-        for(let i=0; i<2; i++){
-            expenses1 = prompt('Введите статью расходов');
-            do{
-                profit = +prompt('Во сколько обходится?');
-            }
-            while(!isNumber(profit));
-            sum +=profit;
+        for (let i in appData.expenses){
+            appData.expensesMonth += +appData.expenses[i]
         }
-        return sum;
+        return appData.expensesMonth;
     },
     getAccumulatedMonth :function(){
-        return money - expensesMonth;
+        return money - amount;
     },
     getTargetMonth : function(){
         return appData.mission / accumulatedMonth;
@@ -61,10 +69,6 @@ let appData = {
 
 appData.asking();
 
-let expensesMonth = appData.getExpensesMonth();
-
-console.log('Расходы за месяц: ' + expensesMonth);
-
 let accumulatedMonth = appData.getAccumulatedMonth();
 
 console.log(accumulatedMonth + '-ваш доход с учетом затрат');
@@ -79,3 +83,4 @@ let budjetDay = accumulatedMonth / 30;
 console.log(budjetDay + '-ваш бюджет на день');
 
 console.log(appData.getStatusIncome(budjetDay));
+console.log(appData.expenses);
