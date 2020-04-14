@@ -80,7 +80,6 @@ console.log(appData.budjetDay);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome(appData.budjetDay));
 
-console.log('Наша программа включает в себя данные:');
 for (let i in appData){
-        console.log(i);
+    console.log('Наша программа включает в себя данные:' + i + ' ' + appData[i]);
 }
