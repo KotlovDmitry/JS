@@ -34,5 +34,14 @@ booklist1[5].after(booklist1[2]);
 booklist1[7].after(booklist1[2]);
 booklist1[9].after(booklist1[2]);
 
-book[5].classList.addd('booklist2');
-const booklist2 = document.querySelectorAll('.booklist1 li');
+book[5].classList.add('booklist2');
+const booklist2 = document.querySelectorAll('.booklist2 li');
+booklist2[1].after(booklist2[9]);
+booklist2[4].after(booklist2[2]);
+booklist2[7].after(booklist2[5]);
+
+book[2].classList.add('book6');
+const book6 = document.querySelectorAll('.book6 li');
+const newLi = document.createElement('li');
+newLi.textContent = 'Глава 8: За пределами ES6';
+book6[8].append(newLi);
