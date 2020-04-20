@@ -25,3 +25,14 @@ book3[2].textContent = 'Книга 3. this и Прототипы Объекто�
 
 document.body.style.backgroundImage = 'url(./image/you-dont-know-js.jpg)';
 
+book[0].classList.add('booklist1');
+const booklist1 = document.querySelectorAll('.booklist1 li');
+booklist1[4].after(booklist1[2]);
+booklist1[3].after(booklist1[6]);
+booklist1[6].after(booklist1[8]);
+booklist1[5].after(booklist1[2]);
+booklist1[7].after(booklist1[2]);
+booklist1[9].after(booklist1[2]);
+
+book[5].classList.addd('booklist2');
+const booklist2 = document.querySelectorAll('.booklist1 li');
