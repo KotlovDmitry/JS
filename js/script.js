@@ -22,7 +22,7 @@ let additionalExpenses = document.querySelectorAll('.additional-expenses');
 let periodSelect = document.querySelector('.period-select');
 let additionalExpensesItem = document.querySelector('.additional_expenses-item');
 let targetAmount = document.querySelector('.target-amount');
-let incomeItem = document.querySelectorAll('.income-items');
+let incomeItems = document.querySelectorAll('.income-items');
 
 let appData = {
     budget: 0,
@@ -70,6 +70,14 @@ let appData = {
             expensesPlus.style.display = 'none';
         }
     },
+    addIncomeBlock : function(){
+        let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
+        incomeItems = document.querySelectorAll('.income-items');
+        if (incomeItems.length === 3){
+            incomePlus.style.display = 'none';
+        }
+    },
     getExpenses : function(){
         expensesItems.forEach(function(item){
             let itemExpenses = item.querySelector('.expenses-title').value;
@@ -80,14 +88,13 @@ let appData = {
         });
     },
     getIncome : function(){
-        if (confirm('Есть ли у вас дополнительный источник заработка?')){
-            let itemIncome = prompt('Какой?', 'Фриланс');
-            let cashIncome = prompt('сколько получаете?', 5000);
-            appData.income[itemIncome] = cashIncome;
-        }
-        for (let key in appData.income){
-            appData.incomeMonth += +appData.income[key]
-        }
+        incomeItems.forEach(function(item){
+            let itemIncome = item.querySelector('.income-title');
+            let cashIncome = item.querySelector('.income-amount');
+            if (itemIncome !== '' && cashIncome !== ''){
+                appData.income[itemIncome] = cashIncome;
+            }
+        });
     },
     getAddExpenses : function(){
         let addExpenses = additionalExpensesItem.value.split(',');
@@ -125,7 +132,7 @@ let appData = {
     
     getBudget :function(){
         appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
-        appData.budgetDay = Math.floor(appData.budgetMonth / 30);
+        appData.budgetDay = Math.floor.ceil(appData.budgetMonth / 30);
     },
 
     getTargetMonth : function(){
@@ -152,6 +159,7 @@ let appData = {
 start.addEventListener('click', appData.start);
 
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
+incomePlus.addEventListener('click', appData.addIncomeBlock);
 
 // if (appData.getTargetMonth() < 0){
 //     console.log('Цель достигнута не будет');
